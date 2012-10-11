@@ -17,13 +17,22 @@ module Money
     end
 
     describe '#plus' do
-      it 'adds two amounts of the same currency' do
+      it 'returns a Sum object' do
         five = Money.new( 5, :dollar)
-        ten  = Money.new(10, :dollar)
+        sum = five.plus(five)
 
-      five.plus(five).should == ten
+        sum.augend.should == five
+        sum.addend.should == five
       end
     end
   end
 
+  describe Sum do
+    describe '#reduce' do
+      it 'adds the two addends' do
+        sum = Sum.new(Money.new(3, :dollar), Money.new(4, :dollar))
+        sum.reduce(:dollar).should == Money.new(7, :dollar)
+      end
+    end
+  end
 end

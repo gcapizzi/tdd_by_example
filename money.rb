@@ -1,6 +1,8 @@
 module Money
 
   class Money
+    attr_reader :amount, :currency
+
     def initialize(amount, currency)
       @amount = amount
       @currency = currency
@@ -11,16 +13,24 @@ module Money
     end
 
     def plus(other)
-      self.class.new(amount + other.amount, currency)
+      Sum.new(self, other)
     end
 
     def ==(other)
       amount == other.amount && self.currency == other.currency
     end
-
-    protected
-
-    attr_reader :amount, :currency
   end
 
+  class Sum
+    attr_reader :augend, :addend
+
+    def initialize(augend, addend)
+      @augend = augend
+      @addend = addend
+    end
+
+    def reduce(to)
+      Money.new(augend.amount + addend.amount, to)
+    end
+  end
 end
