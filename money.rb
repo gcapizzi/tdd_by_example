@@ -9,5 +9,9 @@ module Money
     def times(n)
       return self.class.new(amount * n)
     end
+
+    def ==(other)
+      amount == other.amount
+    end
   end
 end
