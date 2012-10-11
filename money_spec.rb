@@ -5,21 +5,13 @@ module Money
 
   describe Money do
     it 'compares amounts of different currencies' do
-      Dollar.new(5).should == Dollar.new(5)
-      Dollar.new(5).should_not == Dollar.new(6)
-      Dollar.new(5).should_not == Euro.new(5)
+      Money.new(5, :dollar).should == Money.new(5, :dollar)
+      Money.new(5, :dollar).should_not == Money.new(6, :dollar)
+      Money.new(5, :dollar).should_not == Money.new(5, :euro)
     end
-  end
 
-  describe Dollar do
     it 'allows multiplication' do
-      Dollar.new(5).times(2).should == Dollar.new(10)
-    end
-  end
-
-  describe Euro do
-    it 'allows multiplication' do
-      Euro.new(5).times(2).should == Euro.new(10)
+      Money.new(5, :dollar).times(2).should == Money.new(10, :dollar)
     end
   end
 
