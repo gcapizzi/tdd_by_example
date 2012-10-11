@@ -14,4 +14,15 @@ module Money
     end
   end
 
+  describe Euro do
+    it 'allows multiplication' do
+      Euro.new(5).times(2).should == Euro.new(10)
+    end
+
+    it 'tests equality by amount' do
+      Euro.new(5).should == Euro.new(5)
+      Euro.new(5).should_not == Euro.new(6)
+    end
+  end
+
 end
