@@ -1,7 +1,5 @@
 module Money
   class Dollar
-    attr_reader :amount
-
     def initialize(amount)
       @amount = amount
     end
@@ -13,5 +11,9 @@ module Money
     def ==(other)
       amount == other.amount
     end
+
+    protected
+
+    attr_reader :amount
   end
 end

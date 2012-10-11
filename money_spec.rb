@@ -5,8 +5,7 @@ module Money
 
   describe Dollar do
     it 'allows multiplication' do
-      five = Dollar.new(5)
-      five.times(2).amount.should == 10
+      Dollar.new(5).times(2).should == Dollar.new(10)
     end
 
     it 'tests equality by amount' do
