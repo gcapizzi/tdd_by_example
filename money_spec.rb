@@ -10,15 +10,19 @@ module Money
       Money.new(5, :dollar).should_not == Money.new(5, :euro)
     end
 
-    it 'allows multiplication' do
-      Money.new(5, :dollar).times(2).should == Money.new(10, :dollar)
+    describe '#times' do
+      it 'multiplies money by a constant' do
+        Money.new(5, :dollar).times(2).should == Money.new(10, :dollar)
+      end
     end
 
-    it 'allows addition' do
-      five = Money.new( 5, :dollar)
-      ten  = Money.new(10, :dollar)
+    describe '#plus' do
+      it 'adds two amounts of the same currency' do
+        five = Money.new( 5, :dollar)
+        ten  = Money.new(10, :dollar)
 
       five.plus(five).should == ten
+      end
     end
   end
 
