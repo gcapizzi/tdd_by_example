@@ -1,7 +1,7 @@
 require 'rspec'
 require_relative 'money'
 
-class Fixnum
+class Numeric
   def money(currency); Money::Money.new(self, currency); end
   def dollars; money(:dollar); end
   def euros; money(:euro); end
