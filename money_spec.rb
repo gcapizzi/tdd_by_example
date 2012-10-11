@@ -40,4 +40,17 @@ module Money
       end
     end
   end
+
+  describe Bank do
+    describe '#reduce' do
+      it 'reduces single amounts' do
+        Bank.new.reduce(1.dollars, :dollars).should == 1.dollars
+      end
+      it 'reduces sums' do
+        sum = Sum.new(3.dollars, 4.dollars)
+        Bank.new.reduce(sum, :dollar).should == 7.dollars
+      end
+    end
+  end
+
 end

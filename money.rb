@@ -19,6 +19,10 @@ module Money
     def ==(other)
       amount == other.amount && self.currency == other.currency
     end
+
+    def reduce(to)
+      return self
+    end
   end
 
   class Sum
@@ -31,6 +35,12 @@ module Money
 
     def reduce(to)
       Money.new(augend.amount + addend.amount, to)
+    end
+  end
+
+  class Bank
+    def reduce(expression, to)
+      expression.reduce(to)
     end
   end
 end
