@@ -20,8 +20,9 @@ module Money
       amount == other.amount && self.currency == other.currency
     end
 
-    def reduce(to)
-      return self
+    def reduce(bank, to)
+      rate = bank.get_rate(currency, to)
+      return self.class.new(amount / rate, to)
     end
   end
 
@@ -33,14 +34,28 @@ module Money
       @addend = addend
     end
 
-    def reduce(to)
+    def reduce(bank, to)
       Money.new(augend.amount + addend.amount, to)
     end
   end
 
   class Bank
+    def initialize
+      @rates = {}
+    end
+
     def reduce(expression, to)
-      expression.reduce(to)
+      expression.reduce(self, to)
+    end
+
+    def add_rate(from, to, rate)
+      @rates[from] = {} unless @rates[from]
+      @rates[from][to] = rate
+    end
+
+    def get_rate(from, to)
+      return 1 if from == to
+      @rates[from][to]
     end
   end
 end

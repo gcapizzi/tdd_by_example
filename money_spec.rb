@@ -36,7 +36,7 @@ module Money
     describe '#reduce' do
       it 'adds the two addends' do
         sum = Sum.new(3.dollars, 4.dollars)
-        sum.reduce(:dollar).should == 7.dollars
+        sum.reduce(Bank.new, :dollar).should == 7.dollars
       end
     end
   end
@@ -44,11 +44,18 @@ module Money
   describe Bank do
     describe '#reduce' do
       it 'reduces single amounts' do
-        Bank.new.reduce(1.dollars, :dollars).should == 1.dollars
+        Bank.new.reduce(1.dollars, :dollar).should == 1.dollars
       end
+
       it 'reduces sums' do
         sum = Sum.new(3.dollars, 4.dollars)
         Bank.new.reduce(sum, :dollar).should == 7.dollars
+      end
+
+      it 'converts currencies' do
+        bank = Bank.new
+        bank.add_rate(:dollar, :euro, 1.5)
+        bank.reduce(3.dollars, :euro).should == 2.euros
       end
     end
   end
