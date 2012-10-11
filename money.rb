@@ -1,16 +1,8 @@
 module Money
 
-  class Dollar
-    def initialize(amount)
-      @amount = amount
-    end
-
-    def times(n)
-      return self.class.new(amount * n)
-    end
-
+  class Money
     def ==(other)
-      amount == other.amount
+      amount == other.amount && self.class == other.class
     end
 
     protected
@@ -18,7 +10,7 @@ module Money
     attr_reader :amount
   end
 
-  class Euro
+  class Dollar < Money
     def initialize(amount)
       @amount = amount
     end
@@ -26,14 +18,16 @@ module Money
     def times(n)
       return self.class.new(amount * n)
     end
+  end
 
-    def ==(other)
-      amount == other.amount
+  class Euro < Money
+    def initialize(amount)
+      @amount = amount
     end
 
-    protected
-
-    attr_reader :amount
+    def times(n)
+      return self.class.new(amount * n)
+    end
   end
 
 end
