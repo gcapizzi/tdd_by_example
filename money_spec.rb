@@ -11,4 +11,11 @@ describe Money do
   it 'allows multiplication' do
     Money.new(5, :dollar).times(2).should == Money.new(10, :dollar)
   end
+
+  it 'allows addition' do
+    five = Money.new( 5, :dollar)
+    ten  = Money.new(10, :dollar)
+
+    five.plus(five).should == ten
+  end
 end
