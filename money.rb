@@ -39,7 +39,9 @@ module Money
     end
 
     def reduce(bank, to)
-      Money.new(augend.amount + addend.amount, to)
+      a = augend.reduce(bank, to).amount
+      b = addend.reduce(bank, to).amount
+      Money.new(a + b, to)
     end
   end
 

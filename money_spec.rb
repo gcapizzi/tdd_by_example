@@ -47,9 +47,16 @@ module Money
         Bank.new.reduce(1.dollars, :dollar).should == 1.dollars
       end
 
-      it 'reduces sums' do
+      it 'reduces sums with same currency' do
         sum = Sum.new(3.dollars, 4.dollars)
         Bank.new.reduce(sum, :dollar).should == 7.dollars
+      end
+
+      it 'reduces sums with different currencies' do
+        bank = Bank.new
+        bank.add_rate(:dollar, :euro, 1.5)
+        sum = Sum.new(3.dollars, 4.euros)
+        bank.reduce(sum, :euro).should == 6.euros
       end
 
       it 'converts currencies' do
