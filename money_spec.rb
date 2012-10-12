@@ -16,15 +16,15 @@ module Money
       5.dollars.should_not == 5.euros
     end
 
-    describe '#times' do
+    describe '#times, #*' do
       it 'multiplies money by a constant' do
-        5.dollars.times(2).should == 10.dollars
+        (5.dollars * 2).should == 10.dollars
       end
     end
 
-    describe '#plus' do
+    describe '#plus, #+' do
       it 'returns a Sum object' do
-        sum = 5.dollars.plus(5.dollars)
+        sum = 5.dollars + 5.dollars
 
         sum.augend.should == 5.dollars
         sum.addend.should == 5.dollars

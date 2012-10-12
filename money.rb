@@ -12,9 +12,13 @@ module Money
       return self.class.new(amount * n, currency)
     end
 
+    alias :* :times
+
     def plus(other)
       Sum.new(self, other)
     end
+
+    alias :+ :plus
 
     def ==(other)
       amount == other.amount && self.currency == other.currency
@@ -22,7 +26,7 @@ module Money
 
     def reduce(bank, to)
       rate = bank.get_rate(currency, to)
-      return self.class.new(amount / rate, to)
+      self.class.new(amount / rate, to)
     end
   end
 
