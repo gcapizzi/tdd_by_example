@@ -10,10 +10,12 @@ end
 module Money
 
   describe Money do
-    it 'compares amounts of different currencies' do
-      5.dollars.should == 5.dollars
-      5.dollars.should_not == 6.dollars
-      5.dollars.should_not == 5.euros
+    describe '==' do
+      it 'compares amounts of different currencies' do
+        5.dollars.should == 5.dollars
+        5.dollars.should_not == 6.dollars
+        5.dollars.should_not == 5.euros
+      end
     end
 
     describe '#times, #*' do
@@ -47,6 +49,12 @@ module Money
         Bank.new.reduce(1.dollars, :dollar).should == 1.dollars
       end
 
+      it 'converts currencies' do
+        bank = Bank.new
+        bank.add_rate(:dollar, :euro, 1.5)
+        bank.reduce(3.dollars, :euro).should == 2.euros
+      end
+
       it 'reduces sums with same currency' do
         sum = Sum.new(3.dollars, 4.dollars)
         Bank.new.reduce(sum, :dollar).should == 7.dollars
@@ -57,12 +65,6 @@ module Money
         bank.add_rate(:dollar, :euro, 1.5)
         sum = Sum.new(3.dollars, 4.euros)
         bank.reduce(sum, :euro).should == 6.euros
-      end
-
-      it 'converts currencies' do
-        bank = Bank.new
-        bank.add_rate(:dollar, :euro, 1.5)
-        bank.reduce(3.dollars, :euro).should == 2.euros
       end
     end
   end
